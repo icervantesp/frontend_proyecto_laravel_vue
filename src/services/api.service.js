@@ -12,5 +12,22 @@ export default function Api(){
         'Authorization': 'Bearer '+token
     }
     });
+    // interceptores
+    api.interceptors.response.use(
+    (response) => {
+return response;
+        },
+    (error) =>{
+// error de auth (401)
+if(error.response?.status === 401){
+    console.log("INTERCEPTOR ****************");
+localStorage.removeItem("access_token")
+    location.href = "/auth/login"
+}
+// error de auth (403)
+
+// error 500
+        }
+    )
     return api;
 }
